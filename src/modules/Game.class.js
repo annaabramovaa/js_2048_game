@@ -35,6 +35,9 @@ export default class Game {
   }
 
   moveLeft() {
+    const previousState = JSON.stringify(this.board);
+    let merged = false;
+
     for (let rowIndex = 0; rowIndex < this.board.length; rowIndex++) {
       let row = this.board[rowIndex].filter((value) => value !== 0);
 
@@ -43,6 +46,7 @@ export default class Game {
           row[i] *= 2;
           this.score += row[i];
           row[i + 1] = 0;
+          merged = true;
         }
       }
 
@@ -54,9 +58,15 @@ export default class Game {
 
       this.board[rowIndex] = row;
     }
-    this.spawnTile();
+
+    if (merged || JSON.stringify(this.board) !== previousState) {
+      this.spawnTile();
+    }
   }
   moveRight() {
+    const previousState = JSON.stringify(this.board);
+    let merged = false;
+
     for (let rowIndex = 0; rowIndex < this.board.length; rowIndex++) {
       let row = this.board[rowIndex].filter((value) => value !== 0).reverse();
 
@@ -65,6 +75,7 @@ export default class Game {
           row[i] *= 2;
           this.score += row[i];
           row[i + 1] = 0;
+          merged = true;
         }
       }
 
@@ -78,10 +89,16 @@ export default class Game {
 
       this.board[rowIndex] = row;
     }
-    this.spawnTile();
+
+    if (merged || JSON.stringify(this.board) !== previousState) {
+      this.spawnTile();
+    }
   }
 
   moveUp() {
+    const previousState = JSON.stringify(this.board);
+    let merged = false;
+
     for (let col = 0; col < 4; col++) {
       let newColumn = this.board.map((row) => row[col]).filter((v) => v !== 0);
 
@@ -90,6 +107,7 @@ export default class Game {
           newColumn[i] *= 2;
           this.score += newColumn[i];
           newColumn[i + 1] = 0;
+          merged = true;
         }
       }
 
@@ -103,9 +121,15 @@ export default class Game {
         this.board[row][col] = newColumn[row];
       }
     }
-    this.spawnTile();
+
+    if (merged || JSON.stringify(this.board) !== previousState) {
+      this.spawnTile();
+    }
   }
   moveDown() {
+    const previousState = JSON.stringify(this.board);
+    let merged = false;
+
     for (let col = 0; col < 4; col++) {
       let newColumn = this.board
         .map((row) => row[col])
@@ -117,6 +141,7 @@ export default class Game {
           newColumn[i] *= 2;
           this.score += newColumn[i];
           newColumn[i + 1] = 0;
+          merged = true;
         }
       }
 
@@ -132,7 +157,10 @@ export default class Game {
         this.board[row][col] = newColumn[row];
       }
     }
-    this.spawnTile();
+
+    if (merged || JSON.stringify(this.board) !== previousState) {
+      this.spawnTile();
+    }
   }
 
   /**

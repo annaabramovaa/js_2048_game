@@ -83,7 +83,7 @@ function handleKeyPress(e) {
       startButton.textContent = 'Restart';
       startButton.classList.add('restart');
     } else if (game.getStatus() === 'lose') {
-      showMessage('lo');
+      showMessage('lose');
       startButton.textContent = 'Restart';
       startButton.classList.add('restart');
     } else {
